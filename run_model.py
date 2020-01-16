@@ -1,10 +1,11 @@
 
-from utils import transform, freeze_layers, show_progress
+from utils import transform, freeze_layers, show_progress, invert_norm
 from model import Model
 from roomDataset import RoomDataset
 
 from tqdm import tqdm
 import numpy as np
+import matplotlib.pyplot as plt
 
 import torch
 import torch.utils.data
@@ -147,7 +148,7 @@ class RunModel:
             outputs = model(element[0])
             print("\nexpected: ", element[1].cpu().detach().numpy()[0], "\ngot:      ", np.around(outputs.cpu().detach().numpy()[0]))
             print("\n____________________\n")
-            plt.matshow(denorm(element[0][0]).cpu().detach().numpy().reshape(WINDOW_SIZE, WINDOW_SIZE, 3) / 255)
+            plt.matshow(denorm(element[0][0]).cpu().detach().numpy().reshape(350, 475, 3))
             plt.title("got: " + str(outputs.cpu().detach().numpy()[0]))
             plt.show()
 
@@ -164,7 +165,7 @@ if __name__ == "__main__":
         dropout_chance=0.45,
         lr_decay=0.1)
 
-    runModel.train()
+    # runModel.train()
     runModel.test()
         
         

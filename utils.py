@@ -44,6 +44,13 @@ def freeze_layers(model):
     
     return model
 
+# invert normalization
+def invert_norm():
+    inv_normalize = transforms.Normalize(
+        mean=[-0.485/0.229, -0.456/0.224, -0.406/0.225],
+        std=[1/0.229, 1/0.224, 1/0.255]
+    )
+    return inv_normalize
 
 
 
